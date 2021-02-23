@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.restaurante_maven.Modelo.Principal;
+package Modelo.Principal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +6,7 @@ import java.util.List;
 public class Client extends Person {
 
     protected List<String> adress;
-    protected List<Integer> order;
+    protected List<Order> order;
     private int points;
 
     public Client(String DNI, String name, int age, int points) {
@@ -29,11 +24,11 @@ public class Client extends Person {
         this.adress = adress;
     }
 
-    public List<Integer> getOrder() {
+    public List<Order> getOrder() {
         return order;
     }
 
-    public void setOrder(List<Integer> order) {
+    public void setOrder(List<Order> order) {
         this.order = order;
     }
 
@@ -47,9 +42,8 @@ public class Client extends Person {
 
     @Override
     public String toString() {
-        return super.toString()+"Client{" + "adress=" + adress + ", order=" + order + ", points=" + points + '}';
+        return super.toString() + "Client{" + "adress=" + adress + ", order=" + order + ", points=" + points + '}';
     }
-    
 
     @Override
     public boolean equals(Object obj) {
