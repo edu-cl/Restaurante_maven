@@ -1,4 +1,4 @@
-package Modelo.Principal;
+package com.restaurante_maven.Modelo.Principal;
 
 import java.util.ArrayList;
 import java.util.List;

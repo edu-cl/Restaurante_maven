@@ -16,6 +16,8 @@ public class MainMenuController implements IMMController{
 
     @Override
     public Order newOrder(Client c, LocalDateTime d) {
+        Order result = null;
+        return result;
     }
 
     @Override
