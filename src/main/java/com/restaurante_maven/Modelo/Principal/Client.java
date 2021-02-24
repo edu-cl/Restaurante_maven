@@ -51,9 +51,9 @@ public class Client extends Person {
         if (this == obj) {
             result = true;
         }
-        if (obj != null && obj instanceof Drink) {
+        if (obj != null && obj instanceof Client) {
             Client a = (Client) obj;
-            if (this.getDNI().equals(a.getDNI())) {
+            if (this.getDNI().toLowerCase().equals(a.getDNI().toLowerCase())) {
                 result = true;
             }
         }
