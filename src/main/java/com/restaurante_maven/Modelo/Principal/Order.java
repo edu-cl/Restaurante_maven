@@ -5,38 +5,89 @@
  */
 package com.restaurante_maven.Modelo.Principal;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author migue
  */
-public class Order {
+@XmlRootElement(name = "Order")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Order implements Serializable {
+
+    
+    public static int contador = 0;
+    @XmlElement(name="ID")
+    private int id;
+    @XmlElement(name="Cliente")
     private Client client;
-    private List<Product> products;
+    @XmlElement(name="Productos")
+    private List<Integer> products;
     private int total;
+    @XmlElement(name="Fecha")
     private LocalDate date;
     private String address;
     private boolean delivered;
     private boolean payed;
 
-    public Order(Client client, int total, String address, boolean delivered, boolean payed) {
+    public Order() {
+        this.id = contador++;
+        this.client = new Client();
+        this.products = new ArrayList<>();
+        this.date = LocalDate.now();
+        this.address = "";
+        this.delivered = false;
+        this.payed = false;
+    }
+
+    public Order(Client client, int total, String address, boolean delivered, boolean payed, List<Integer> p) {
+        this.id = contador++;
         this.client = client;
-        this.products = products;
+        this.products = p;
         this.total = total;
         this.date = LocalDate.now();
         this.address = address;
         this.delivered = delivered;
         this.payed = payed;
     }
+
+    public Order(int id) {
+        this.id = id;
+    }
     
     
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setProducts(List<Integer> products) {
+        this.products = products;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     
     public Client getClient() {
         return client;
     }
-
 
     public int getTotal() {
         return total;
@@ -54,11 +105,10 @@ public class Order {
         return date;
     }
 
-    public List<Product> getProducts() {
+    public List<Integer> getProducts() {
         return products;
     }
-    
-    
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -81,7 +131,15 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "client=" + client + ", products=" + products + ", total=" + total + ", date=" + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + '}';
+        String result = "";
+
+        if (products == null) {
+            result = "Order{" + "client=" + client + ", products=" + "Vacio" + ", total=" + total + ", date=" + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + '}';
+
+        } else {
+            result = "Order{" + "client=" + client + ", products=" + products + ", total=" + total + ", date=" + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + '}';
+
+        }
+        return result;
     }
-    
 }

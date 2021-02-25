@@ -5,14 +5,18 @@
  */
 package com.restaurante_maven.Modelo.Principal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author migue
  */
-public class Food extends Product {
+public class Food extends Product implements Serializable{
 
     private boolean ForVegans;
     private  int[] BudlePack={};

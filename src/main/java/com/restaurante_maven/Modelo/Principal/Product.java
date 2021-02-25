@@ -6,13 +6,19 @@
 package com.restaurante_maven.Modelo.Principal;
 
 import com.restaurante_maven.Modelo.Intefaces.IProduct;
+import java.io.Serializable;
 import java.util.UUID;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author migue
  */
-public abstract class Product implements IProduct {
+@XmlRootElement(name="Productos")
+@XmlAccessorType(XmlAccessType.FIELD)
+public abstract class Product implements IProduct, Serializable {
 
     public static int contador = 0;
     private int id;
@@ -20,6 +26,7 @@ public abstract class Product implements IProduct {
     private double price;
     private boolean forCeliac;
 
+    public Product(){}
     public Product(String name, double price, boolean forCeliac) {
 
         this.id = contador++;
@@ -36,8 +43,7 @@ public abstract class Product implements IProduct {
         this.forCeliac = false;
     }
 
-    @Override
-    public abstract int[] getBudlePack();
+  
 
     public int getId() {
         return id;
@@ -61,6 +67,11 @@ public abstract class Product implements IProduct {
     @Override
     public String toString() {
         return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", forCeliac=" + forCeliac + '}';
+    }
+
+    @Override
+    public int[] getBudlePack() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

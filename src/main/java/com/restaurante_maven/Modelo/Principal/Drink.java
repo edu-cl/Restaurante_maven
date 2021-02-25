@@ -5,11 +5,17 @@
  */
 package com.restaurante_maven.Modelo.Principal;
 
+import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author migue
  */
-public class Drink extends Product {
+
+public class Drink extends Product implements Serializable {
 
     private int[] BudlePack = {};
     private boolean alcoholic;

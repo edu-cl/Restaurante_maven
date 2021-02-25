@@ -1,14 +1,29 @@
 package com.restaurante_maven.Modelo.Principal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class Client extends Person {
 
+@XmlRootElement(name="Client")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Client extends Person implements Serializable {
+
+    @XmlElement(name="Direccion")
     protected List<String> adress;
-    protected List<Order> order;
+   @XmlElement(name="ID_Pedido")
+    protected List<Integer> order;
     private int points;
 
+    public Client(){
+    this.adress=new ArrayList<>();
+    this.order=new ArrayList<>();
+    this.points=0;
+    }
     public Client(String DNI, String name, int age, int points) {
         super(DNI, name, age);
         this.adress = new ArrayList<>();
@@ -24,11 +39,11 @@ public class Client extends Person {
         this.adress = adress;
     }
 
-    public List<Order> getOrder() {
+    public List<Integer> getOrder() {
         return order;
     }
 
-    public void setOrder(List<Order> order) {
+    public void setOrder(List<Integer> order) {
         this.order = order;
     }
 

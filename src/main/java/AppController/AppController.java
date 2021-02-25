@@ -3,6 +3,11 @@ package AppController;
 import com.restaurante_maven.Modelo.Repositorios.RepositoryClients;
 import com.restaurante_maven.Modelo.Repositorios.RepositoryOrders;
 import com.restaurante_maven.Modelo.Repositorios.RepositoryProduct;
+import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 public class AppController {
 
@@ -13,28 +18,5 @@ public class AppController {
     public AppController() {
     }
 
-    public boolean loadClients() {
-        boolean result = false;
-
-        return result;
-    }
-
-    public boolean saveClients() {
-        boolean result = false;
-
-        return result;
-    }
-
-    public boolean loadOrdersClients() {
-        boolean result = false;
-
-        return result;
-    }
-
-    public boolean saveOrders() {
-        boolean result = false;
-
-        return result;
-    }
-    
+   
 }

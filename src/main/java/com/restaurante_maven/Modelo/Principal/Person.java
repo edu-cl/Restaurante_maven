@@ -5,15 +5,25 @@
  */
 package com.restaurante_maven.Modelo.Principal;
 
-/**
- *
- * @author migue
- */
-public class Person {
+import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+@XmlRootElement(name="person")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Person implements Serializable{
+   
     private String DNI;
     private String name;
     private int age;
 
+    public Person(){
+    this.DNI="";
+    this.name="";
+    this.age=0;
+    }
     public Person(String DNI, String name, int age) {
         this.DNI = DNI;
         this.name = name;

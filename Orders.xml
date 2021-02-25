@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<repositoryOrders>
+    <Pedidos>
+        <ID>1</ID>
+        <Cliente>
+            <DNI>12443X</DNI>
+            <name>fran</name>
+            <age>20</age>
+            <points>0</points>
+        </Cliente>
+        <Productos>6</Productos>
+        <total>20</total>
+        <Fecha/>
+        <address>Anton rico</address>
+        <delivered>true</delivered>
+        <payed>true</payed>
+    </Pedidos>
+    <Pedidos>
+        <ID>0</ID>
+        <Cliente>
+            <DNI>123X</DNI>
+            <name>Eduardo</name>
+            <age>20</age>
+            <Direccion>Antonrico</Direccion>
+            <Direccion>Fernan nuñez</Direccion>
+            <ID_Pedido>0</ID_Pedido>
+            <ID_Pedido>1</ID_Pedido>
+            <points>0</points>
+        </Cliente>
+        <Productos>6</Productos>
+        <total>20</total>
+        <Fecha/>
+        <address>Anton rico</address>
+        <delivered>true</delivered>
+        <payed>true</payed>
+    </Pedidos>
+</repositoryOrders>
