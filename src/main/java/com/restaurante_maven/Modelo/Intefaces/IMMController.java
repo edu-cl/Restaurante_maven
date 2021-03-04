@@ -15,16 +15,11 @@ import java.time.LocalDateTime;
  */
 public interface IMMController {
     public Order newOrder(Client c, LocalDateTime d);
-    public Order changeOrder(Client c);
-    public Order changeOrder(LocalDateTime d);
-    public Order changeOrder(Client c,LocalDateTime d);
-    public boolean deleteOrder(Client c);
-    public boolean deleteOrder(Client c, LocalDateTime d);
-    public boolean deleteOrder(LocalDateTime d);
+    public Order changeOrder(Client c, int id);
+    public boolean deleteOrder(Client c, int id);
     public int cashToday();
     public int cashThisMonth();
     public int cashTotal();
     public void viewOrdersNotPayed();
     public void viewOrdersPendingDelivered();
-    public void saveAllAndClose();
 }

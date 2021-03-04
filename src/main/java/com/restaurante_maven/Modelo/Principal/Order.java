@@ -7,6 +7,7 @@ package com.restaurante_maven.Modelo.Principal;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -61,7 +62,11 @@ public class Order implements Serializable {
     public Order(int id) {
         this.id = id;
     }
-    
+
+    public Order(Client c, String address) {
+       this.client = client;
+       this.address = address;
+    }
     
 
     public int getId() {
@@ -142,4 +147,23 @@ public class Order implements Serializable {
         }
         return result;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean result=false;
+        if(this==obj){
+            result=true;
+        }
+        if(obj!=null){
+            if(obj instanceof Order){
+                Order a = (Order)obj; 
+                if(this.id==a.getId()){
+                    result=true;
+                }
+            }
+        }
+       return result;
+    }
+    
 }
