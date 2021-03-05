@@ -70,8 +70,6 @@ public abstract class Product implements IProduct, Serializable {
     }
 
     @Override
-    public int[] getBudlePack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    abstract public int[] getBudlePack();
 
 }
