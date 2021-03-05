@@ -25,7 +25,7 @@ public class Ejecutable {
         RepositoryOrders ro=RepositoryOrders.getMiRepOrder();
         RepositoryProduct rp=new RepositoryProduct();
         
-        
+        /*
         Food f1=new Food("Kebab", 20, true, true);
         List<Integer> productos=new ArrayList<>();
         productos.add(f1.getId());
@@ -51,16 +51,16 @@ public class Ejecutable {
         rc.saveClients("Clients.xml");
         ro.saveOrders("Orders.xml");
         
-        
+        */
         //System.out.println(ro.getOrdersByClient("123X"));
         
         
        rc.loadClients("Clients.xml");
-       //System.out.println(rc);
-       /*
+       System.out.println(rc);
+       
         ro.loadOrders("Orders.xml");
         System.out.println(ro);
-*/
+
        
     }
     

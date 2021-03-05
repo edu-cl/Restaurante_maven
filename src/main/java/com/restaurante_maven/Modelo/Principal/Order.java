@@ -61,6 +61,17 @@ public class Order implements Serializable {
     public Order(int id) {
         this.id = id;
     }
+
+    public Order(Client c, String direccion) {
+        this.id = contador++;
+        this.client = c;
+        this.products = new ArrayList<>();
+        this.total = 0;
+        this.date = LocalDate.now();
+        this.address = direccion;
+        this.delivered = false;
+        this.payed = false;
+    }
     
     
 
@@ -142,4 +153,6 @@ public class Order implements Serializable {
         }
         return result;
     }
+    
+    
 }

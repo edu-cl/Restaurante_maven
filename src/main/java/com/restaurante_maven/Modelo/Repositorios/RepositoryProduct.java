@@ -139,7 +139,7 @@ public class RepositoryProduct {
         return result;
     }
 
-    public Product searchProduct(int id) throws Exception {
+    public Product searchProduct(int id){
         Product result = null;
 
         for (int i = 0; i < productos.size(); i++) {
@@ -152,6 +152,21 @@ public class RepositoryProduct {
         }
         return result;
     }
+    
+        public boolean ValidateIdProduct(int id) {
+        boolean result = false;
+
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos.get(i).getName() != null) {
+                if (productos.get(i).getId() == id) {
+                    result = true;
+                }
+            }
+
+        }
+        return result;
+    }
+    
 
     public Product searchDrinks(String name) {
         Product result = new Drink("Desconocido");

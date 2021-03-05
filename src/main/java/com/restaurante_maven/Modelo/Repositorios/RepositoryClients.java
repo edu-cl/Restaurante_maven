@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author migue
  */
 @XmlRootElement(name = "repositoryClients")
-@XmlAccessorType (XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class RepositoryClients {
 
-    @XmlElement(name="Clientes")
+    @XmlElement(name = "Clientes")
     private List<Client> Clients;
 
     private static RepositoryClients repositoryClients = null;
@@ -80,6 +80,33 @@ public class RepositoryClients {
             }
         }
 
+        return result;
+    }
+
+    //Para los menus
+    public boolean searchClientByDNI2(String DNI) {
+        boolean result = false;
+
+        for (int i = 0; i < Clients.size(); i++) {
+            if (Clients.get(i).getDNI() != null) {
+                if (Clients.get(i).getDNI().toLowerCase().equals(DNI.toLowerCase())) {
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    public boolean searchClientByNAME2(String name) {
+        boolean result = false;
+
+        for (int i = 0; i < Clients.size(); i++) {
+            if (Clients.get(i).getName() != null) {
+                if (Clients.get(i).getName().toLowerCase().equals(name.toLowerCase())) {
+                    result = true;
+                }
+            }
+        }
         return result;
     }
 
@@ -144,8 +171,8 @@ public class RepositoryClients {
         }
         return result;
     }
-    
-        public boolean loadClients(String url) {
+
+    public boolean loadClients(String url) {
         boolean result = false;
         JAXBContext jaxbContext;
         try {
@@ -178,7 +205,7 @@ public class RepositoryClients {
             //jaxbMarshaller.marshal(_instance, System.out);
             //Marshal the employees list in file
             jaxbMarshaller.marshal(repositoryClients, new File(url));
-            result=true;
+            result = true;
         } catch (JAXBException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -190,7 +217,5 @@ public class RepositoryClients {
     public String toString() {
         return "RepositoryClients{" + "Clients=" + Clients + '}';
     }
-    
-    
 
 }

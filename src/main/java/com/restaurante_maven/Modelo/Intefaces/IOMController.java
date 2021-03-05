@@ -13,10 +13,9 @@ import com.restaurante_maven.Modelo.Principal.Product;
  * @author migue
  */
 public interface IOMController {
-    public Product addProduct();
-    public Order editLine();
-    public Order removeLine();
-    public Order setAdress(String a);
-    public void savePaid();
-    public void saveNoPaid();
+    public Product addProduct(int id);
+    public boolean removeProductTheOrder(int id);
+    public void setAdress(String a,Order order);
+    public void savePaid(Order order);
+    public void saveNoPaid(Order order);
 }
