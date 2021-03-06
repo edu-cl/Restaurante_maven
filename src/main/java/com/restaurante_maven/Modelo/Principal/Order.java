@@ -155,5 +155,20 @@ public class Order implements Serializable {
         return result;
     }
     
-    
+        @Override
+        public boolean equals(Object obj) {
+        boolean result=false;
+        if (this == obj) {
+            result=true;
+        }
+        if(obj!=null){
+            if(obj instanceof Order){
+                Order a=(Order) obj;
+            if(this.client==a.getClient()){
+                result=true;
+            }
+        }
+        }
+        return result;
+    }
 }
