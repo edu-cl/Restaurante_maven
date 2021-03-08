@@ -19,7 +19,7 @@ public class AppController {
     public RepositoryProduct product = new RepositoryProduct();
     public OrderMenuController OrdenMenu=new OrderMenuController();
     public MainMenuController MenuFunction=new MainMenuController();
-    public RepositoryChart carrito=RepositoryChart.getGetInstance();
+    public RepositoryChart carrito=RepositoryChart.instanceReposirotyChart();
 
     public AppController() {
     }

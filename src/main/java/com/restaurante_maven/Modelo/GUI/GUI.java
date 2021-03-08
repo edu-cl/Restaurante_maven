@@ -37,37 +37,37 @@ public class GUI {
 	}
 
 	public static boolean IniciarSesion() {
-		cuentaAdmin();
-		boolean result = false;
+        cuentaAdmin();
+        boolean result = false;
 
-		System.out.println("\n+-------------------+");
-		System.out.println("|   Iniciar Sesion  |");
-		System.out.println("+-------------------+");
-		String dni = patronDni();
-		String nombre = devolverString("Introduce tu nombre: ");
-		if (dni != null && nombre != null && controller.clients.searchClientByDNI2(dni)
-				&& controller.clients.searchClientByNAME2(nombre)) {
-			
-			c = controller.clients.searchClientByDNI(dni);
-			
+        System.out.println("\n+-------------------+");
+        System.out.println("|   Iniciar Sesion  |");
+        System.out.println("+-------------------+");
+        String dni = patronDni();
+        String nombre = devolverString("Introduce tu nombre: ");
+        if (dni != null && nombre != null && controller.clients.searchClientByDNI2(dni)) {
+            if (controller.clients.searchClientByDNI(dni).getName().equals(nombre)) {
+                c = controller.clients.searchClientByDNI(dni);
 
-			result = true;
-			if (c != null && c.getDNI()!="00000000T") {
-				sub_menu(c);
-			} else if (c.getDNI() == "00000000T" && c.getName() == "administrador") {
-				menu_administrador(c);
-			}
+                result = true;
+                if (c != null && c.getDNI() != "00000000T") {
+                    sub_menu(c);
+                } else if (c.getDNI() == "00000000T" && c.getName() == "administrador") {
+                    menu_administrador(c);
+                } else {
+                    System.out.println("El DNI que has introducido esta repetido");
+                }
+            }
+            else {
+                System.out.println("El cliente no existe o (DNI o nombre invalidos)");
+            }
 
-			else {
-				System.out.println("El DNI que has introducido esta repetido");
-			}
-
-		} else {
-			System.out.println("El cliente no existe (DNI o nombre invalidos)");
-		}
-		return result;
-	}
-
+        } else {
+            System.out.println("El cliente no existe o (DNI o nombre invalidos)");
+        }
+        return result;
+    }
+	
 	public static boolean Registro() {
 		boolean result = false;
 
