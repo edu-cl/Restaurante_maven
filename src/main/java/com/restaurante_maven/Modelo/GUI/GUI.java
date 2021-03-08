@@ -3,7 +3,9 @@ package com.restaurante_maven.Modelo.GUI;
 import AppController.AppController;
 import com.restaurante_maven.Modelo.Principal.Client;
 import com.restaurante_maven.Modelo.Principal.Order;
+import com.restaurante_maven.Modelo.Repositorios.RepositoryChart;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +14,7 @@ public class GUI {
 
 	static AppController controller = new AppController();
 	public static Client c = null;
+
 	public static void main(String[] args) {
 		menu_principal();
 	}
@@ -40,20 +43,21 @@ public class GUI {
 		System.out.println("\n+-------------------+");
 		System.out.println("|   Iniciar Sesion  |");
 		System.out.println("+-------------------+");
-		String dni = devolverString("Introduce tu DNI: ");
+		String dni = patronDni();
 		String nombre = devolverString("Introduce tu nombre: ");
 		if (dni != null && nombre != null && controller.clients.searchClientByDNI2(dni)
 				&& controller.clients.searchClientByNAME2(nombre)) {
-
+			
 			c = controller.clients.searchClientByDNI(dni);
+			
 
 			result = true;
-			if (c != null) {
+			if (c != null && c.getDNI()!="00000000T") {
 				sub_menu(c);
-			} else if(c.getDNI()== "00000000T") {
+			} else if (c.getDNI() == "00000000T" && c.getName() == "administrador") {
 				menu_administrador(c);
 			}
-			
+
 			else {
 				System.out.println("El DNI que has introducido esta repetido");
 			}
@@ -67,8 +71,7 @@ public class GUI {
 	public static boolean Registro() {
 		boolean result = false;
 
-		String dni = devolverString("Introduce el DNI: ");
-		patronDni(dni);
+		String dni = patronDni();
 		if (dni != null && !controller.clients.searchClientByDNI2(dni)) {
 
 			String name = devolverString("Introduce el nombre: ");
@@ -138,8 +141,6 @@ public class GUI {
 			}
 		} while (numero != 0);
 	}
-	
-	
 
 	public static void menu_principal() {
 		int numero;
@@ -157,8 +158,6 @@ public class GUI {
 			opciones_principales(numero);
 		} while (numero != 0);
 	}
-	
-	
 
 	public static void menu_productos(Client c) {
 		int numero;
@@ -216,22 +215,26 @@ public class GUI {
 			numero = devolverInt("Introduce una opción: ");
 			switch (numero) {
 			case 1:
-			Order c1;
-			
-			String direccion=devolverString("Introduce tu dirrecion");
-			
-			c1=new Order(c, direccion);
-			controller.orders.getOrders().add(c1);
-			c.getOrder().add(c1.getId());
+				Order c1;
+
+				String direccion = devolverString("Introduce tu dirrecion");
+
+				c1 = new Order(c, direccion);
+				controller.orders.getOrders().add(c1);
+				c.getOrder().add(c1.getId());
+                                controller.carrito.setOrder(c1);
 				pulsaEnter();
 				break;
 			case 2:
-
+                            System.out.println(controller.product.getAllProducts());
+				int id = devolverInt("Introduce el id del producto");
+				controller.carrito.getOrder().getProducts().add(id);
+				
 				pulsaEnter();
 				break;
 
 			case 3:
-
+				
 				pulsaEnter();
 				break;
 			case 4:
@@ -248,9 +251,8 @@ public class GUI {
 			System.out.println("\n+-------------------------------------+");
 			System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
 			System.out.println("+-------------------------------------+");
-			System.out.println("| 1) Cambiar dni del cliente          |");
-			System.out.println("| 2) Cambiar nombre del cliente       |");
-			System.out.println("| 3) Cambiar la edad del cliente      |");
+			System.out.println("| 1) Cambiar nombre del cliente       |");
+			System.out.println("| 2) Cambiar la edad del cliente      |");
 			System.out.println("| 0) Salir                            |");
 			System.out.println("+-------------------------------------+");
 
@@ -258,25 +260,13 @@ public class GUI {
 			switch (numero) {
 			case 1:
 
-				if (c != null) {
-
-					c = controller.clients.searchClientByDNI(c.getDNI());
-					c.setDNI(devolverString("Introduce el nuevo dni"));
-
-					System.out.println(c.toString());
-					pulsaEnter();
-				}
-				System.out.println();
-				break;
-			case 2:
 				c = controller.clients.searchClientByDNI(c.getDNI());
 				c.setName(devolverString("Introduce el nuevo nombre"));
-				;
 				System.out.println(c.toString());
 				pulsaEnter();
 				break;
+			case 2:
 
-			case 3:
 				c = controller.clients.searchClientByDNI(c.getDNI());
 				c.setAge(devolverInt("Introduce tu nueva edad"));
 				;
@@ -306,23 +296,28 @@ public class GUI {
 				System.out.println(controller.orders.getOrdersByClient(c.getDNI()));
 				pulsaEnter();
 				int numId = devolverInt("Introduce el id de la orden que quieres borras");
-				Integer c4=(Integer)numId;
-				
+				Integer c4 = (Integer) numId;
+
 				c.getOrder().remove(c4);
-				
+
 				pulsaEnter();
 				break;
 			case 2:
-				for(int i=0;i<c.getOrder().size();i++) {
+				for (int i = 0; i < c.getOrder().size(); i++) {
 					System.out.println(controller.orders.getOrdersById(c.getOrder().get(i)));
 				}
 				pulsaEnter();
 				break;
 			case 3:
-
+                                System.out.println("Los identificadores de las ordenes son: "+c.getOrder());
+				int id = devolverInt("Introduce el id de la orden");
+				controller.carrito.setOrder(controller.orders.getOrdersById(id));
+                                System.out.println("Carrito Cambiado correctamente");
+                                pulsaEnter();
 				break;
 			case 4:
-
+                                controller.carrito.getOrder().setPayed(true);
+                                System.out.println("Orden pagada correctamente");
 				break;
 			}
 		} while (numero != 0);
@@ -343,7 +338,7 @@ public class GUI {
 			numero = devolverInt("Introduce una opción: ");
 			switch (numero) {
 			case 1:
-				
+				menu_clientes();
 				break;
 			case 2:
 				
@@ -351,7 +346,41 @@ public class GUI {
 			}
 		} while (numero != 0);
 	}
-	
+
+	public static void menu_clientes() {
+		int numero;
+		do {
+			System.out.println("\n+-------------------------------------+");
+			System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
+			System.out.println("+-------------------------------------+");
+			System.out.println("| 1) Ver todos los clientes           |");
+			System.out.println("| 2) Ver todas las ordenes de los clientes            |");
+			System.out.println("| 3)                |");
+			System.out.println("| 4) Pagar orden                      |");
+			System.out.println("| 0) Salir                            |");
+			System.out.println("+-------------------------------------+");
+
+			numero = devolverInt("Introduce una opción: ");
+			switch (numero) {
+			case 1:
+				controller.clients.getAllClients();
+				break;
+			case 2:
+				for (int i = 0; i < c.getOrder().size(); i++) {
+					System.out.println(controller.orders.getOrdersById(c.getOrder().get(i)));
+				}
+				pulsaEnter();
+				break;
+			case 3:
+
+				break;
+			case 4:
+
+				break;
+			}
+		} while (numero != 0);
+	}
+
 	public static String devolverString(String texto) {
 		String resultado;
 		Scanner teclado = new Scanner(System.in);
@@ -384,28 +413,31 @@ public class GUI {
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Pulsa Enter para continuar");
 		String desechable = keyboard.nextLine();
-		
 
 	}
-	
+
 	private static void cuentaAdmin() {
-		Client c1 = new Client("00000000T", "administrador", 19, 500);
-		controller.clients.addClient(c1);
+		Client c = new Client("00000000T", "administrador", 19, 500);
+		controller.clients.addClient(c);
 	}
-	
-	public static String patronDni(String dni) {
 
-		
+	public static String patronDni() {
+		boolean aux = false;
+		String dni = "";
+
 		Pattern p = Pattern.compile("[0-9]{7,8}[A-Za-z]");
 		Matcher m = p.matcher(dni);
-		
+
 		while (!m.matches()) {
 
-			System.out.println("El Dni introducido es incorrecto, por favor "
+			if (aux == false) {
+				dni = devolverString("Introduce el DNI: ");
+				m = p.matcher(dni);
+				if (!m.matches()) {
+					System.out.println("Introduce un dni valido");
+				}
+			}
 
-					+ "introduzca un Dni válido.");
-			 dni = devolverString("Introduce el DNI: ");
-			
 		}
 		return dni;
 	}

@@ -53,14 +53,14 @@ public class Ejecutable {
         
         */
         //System.out.println(ro.getOrdersByClient("123X"));
-        
+        /*
         
        rc.loadClients("Clients.xml");
        System.out.println(rc);
        
         ro.loadOrders("Orders.xml");
         System.out.println(ro);
-
+*/
        
     }
     

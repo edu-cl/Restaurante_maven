@@ -4,7 +4,7 @@ import com.restaurante_maven.Modelo.Principal.Order;
 
 
 public class RepositoryChart {
-    Order order;
+   private Order order;
     
     public static  RepositoryChart GetInstance=null;
     

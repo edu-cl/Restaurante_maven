@@ -45,7 +45,7 @@ public class OrderMenuController implements IOMController {
 
         Product Eliminar = product.searchProduct(id);
 
-        if (carrito.order.getProducts().remove(Eliminar) == true) {
+        if (carrito.getOrder().getProducts().remove(Eliminar) == true) {
             result = true;
         }
 
