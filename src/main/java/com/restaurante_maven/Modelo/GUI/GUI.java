@@ -3,6 +3,7 @@ package com.restaurante_maven.Modelo.GUI;
 import AppController.AppController;
 import com.restaurante_maven.Modelo.Principal.Client;
 import com.restaurante_maven.Modelo.Principal.Order;
+import com.restaurante_maven.Modelo.Principal.Product;
 import com.restaurante_maven.Modelo.Repositorios.RepositoryChart;
 
 import java.util.List;
@@ -37,37 +38,36 @@ public class GUI {
 	}
 
 	public static boolean IniciarSesion() {
-        cuentaAdmin();
-        boolean result = false;
+		cuentaAdmin();
+		boolean result = false;
 
-        System.out.println("\n+-------------------+");
-        System.out.println("|   Iniciar Sesion  |");
-        System.out.println("+-------------------+");
-        String dni = patronDni();
-        String nombre = devolverString("Introduce tu nombre: ");
-        if (dni != null && nombre != null && controller.clients.searchClientByDNI2(dni)) {
-            if (controller.clients.searchClientByDNI(dni).getName().equals(nombre)) {
-                c = controller.clients.searchClientByDNI(dni);
+		System.out.println("\n+-------------------+");
+		System.out.println("|   Iniciar Sesion  |");
+		System.out.println("+-------------------+");
+		String dni = patronDni();
+		String nombre = devolverString("Introduce tu nombre: ");
+		if (dni != null && nombre != null && controller.clients.searchClientByDNI2(dni)) {
+			if (controller.clients.searchClientByDNI(dni).getName().equals(nombre)) {
+				c = controller.clients.searchClientByDNI(dni);
 
-                result = true;
-                if (c != null && c.getDNI() != "00000000T") {
-                    sub_menu(c);
-                } else if (c.getDNI() == "00000000T" && c.getName() == "administrador") {
-                    menu_administrador(c);
-                } else {
-                    System.out.println("El DNI que has introducido esta repetido");
-                }
-            }
-            else {
-                System.out.println("El cliente no existe o (DNI o nombre invalidos)");
-            }
+				result = true;
+				if (c != null && c.getDNI() != "00000000T") {
+					sub_menu(c);
+				} else if (c.getDNI() == "00000000T" && c.getName() == "administrador") {
+					menu_administrador(c);
+				} else {
+					System.out.println("El DNI que has introducido esta repetido");
+				}
+			} else {
+				System.out.println("El cliente no existe o (DNI o nombre invalidos)");
+			}
 
-        } else {
-            System.out.println("El cliente no existe o (DNI o nombre invalidos)");
-        }
-        return result;
-    }
-	
+		} else {
+			System.out.println("El cliente no existe o (DNI o nombre invalidos)");
+		}
+		return result;
+	}
+
 	public static boolean Registro() {
 		boolean result = false;
 
@@ -205,11 +205,10 @@ public class GUI {
 		do {
 			System.out.println("\n+-------------------------------------+");
 			System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
-			System.out.println("| 1) Crear nueva orden     		      |");
-			System.out.println("| 2) Añadir un producto    	  		  |");
-			System.out.println("| 3) Eliminar un producto 	  		  |");
-			System.out.println("| 4) Pagar orden                 	  |");
-			System.out.println("| 0) Salir                			  |");
+			System.out.println("| 1) Crear nueva orden                |");
+			System.out.println("| 2) Añadir un producto               |");
+			System.out.println("| 3) Eliminar un producto             |");
+			System.out.println("| 0) Salir                            |");
 			System.out.println("+-------------------------------------+");
 
 			numero = devolverInt("Introduce una opción: ");
@@ -217,29 +216,42 @@ public class GUI {
 			case 1:
 				Order c1;
 
-				String direccion = devolverString("Introduce tu dirrecion");
+				String direccion = devolverString("Introduce tu direccion: ");
 
 				c1 = new Order(c, direccion);
 				controller.orders.getOrders().add(c1);
 				c.getOrder().add(c1.getId());
-                                controller.carrito.setOrder(c1);
+				controller.carrito.setOrder(c1);
 				pulsaEnter();
 				break;
 			case 2:
-                            System.out.println(controller.product.getAllProducts());
-				int id = devolverInt("Introduce el id del producto");
-				controller.carrito.getOrder().getProducts().add(id);
-				
+				System.out.println(controller.product.getAllProducts());
+				int id = devolverInt("Introduce el id del producto: ");
+				if (controller.product.getAllProducts().size() > id) {
+					controller.carrito.getOrder().getProducts().add(id);
+					System.out.println("Se ha añadido al carrito con exito el siguiente producto: " + controller.product.searchProduct(id).getName());
+				}else {
+					System.out.println("Introduce un id valido (entre el 0 y el 5)");
+				}
+
 				pulsaEnter();
 				break;
 
 			case 3:
+				System.out.println(controller.carrito.getOrder().getProducts());
 				
-				pulsaEnter();
-				break;
-			case 4:
+				int pos = devolverInt("Introduce la posicion del producto que quieres eliminar: ");
+				int id2 = controller.carrito.getOrder().getProducts().get(pos);
+				if (controller.carrito.getOrder().getProducts().size() > pos && pos>=0) {
+					System.out.println("Se ha borrado de tu orden el siguiente producto: " + controller.product.searchProduct(id2).getName() );
+					controller.carrito.getOrder().getProducts().remove(pos);
+					
+				} else {
+					System.out.println("Ese producto no esta en la orden");
+				}
 
 				pulsaEnter();
+
 				break;
 			}
 		} while (numero != 0);
@@ -309,15 +321,15 @@ public class GUI {
 				pulsaEnter();
 				break;
 			case 3:
-                                System.out.println("Los identificadores de las ordenes son: "+c.getOrder());
+				System.out.println("Los identificadores de las ordenes son: " + c.getOrder());
 				int id = devolverInt("Introduce el id de la orden");
 				controller.carrito.setOrder(controller.orders.getOrdersById(id));
-                                System.out.println("Carrito Cambiado correctamente");
-                                pulsaEnter();
+				System.out.println("Carrito Cambiado correctamente");
+				pulsaEnter();
 				break;
 			case 4:
-                                controller.carrito.getOrder().setPayed(true);
-                                System.out.println("Orden pagada correctamente");
+				controller.carrito.getOrder().setPayed(true);
+				System.out.println("Orden pagada correctamente");
 				break;
 			}
 		} while (numero != 0);
@@ -341,7 +353,7 @@ public class GUI {
 				menu_clientes();
 				break;
 			case 2:
-				
+
 				break;
 			}
 		} while (numero != 0);
@@ -352,30 +364,20 @@ public class GUI {
 		do {
 			System.out.println("\n+-------------------------------------+");
 			System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
-			System.out.println("+-------------------------------------+");
-			System.out.println("| 1) Ver todos los clientes           |");
-			System.out.println("| 2) Ver todas las ordenes de los clientes            |");
-			System.out.println("| 3)                |");
-			System.out.println("| 4) Pagar orden                      |");
-			System.out.println("| 0) Salir                            |");
-			System.out.println("+-------------------------------------+");
+			System.out.println("+----------------------------------------------+");
+			System.out.println("| 1) Ver todos los clientes                    |");
+			System.out.println("| 2) Ver todas las ordenes de los clientes     |");
+			System.out.println("| 0) Salir                                     |");
+			System.out.println("+----------------------------------------------+");
 
 			numero = devolverInt("Introduce una opción: ");
 			switch (numero) {
 			case 1:
-				controller.clients.getAllClients();
+				System.out.println(controller.clients.getAllClients());
 				break;
 			case 2:
-				for (int i = 0; i < c.getOrder().size(); i++) {
-					System.out.println(controller.orders.getOrdersById(c.getOrder().get(i)));
-				}
+
 				pulsaEnter();
-				break;
-			case 3:
-
-				break;
-			case 4:
-
 				break;
 			}
 		} while (numero != 0);
@@ -434,7 +436,7 @@ public class GUI {
 				dni = devolverString("Introduce el DNI: ");
 				m = p.matcher(dni);
 				if (!m.matches()) {
-					System.out.println("Introduce un dni valido");
+					System.out.println("Introduce un dni valido ");
 				}
 			}
 
