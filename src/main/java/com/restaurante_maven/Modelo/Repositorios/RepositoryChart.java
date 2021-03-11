@@ -18,7 +18,7 @@ public class RepositoryChart {
 }
 
     public RepositoryChart() {
-        order=new Order();
+        order=null;
     }
 
     

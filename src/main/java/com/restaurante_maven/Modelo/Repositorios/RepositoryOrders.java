@@ -60,16 +60,17 @@ public class RepositoryOrders {
         System.out.println(orders);
     }
 
-    public Order getOrdersById(int id){
-        Order result=new Order(id);
-        
-        for(int i =0;i<orders.size();i++){
-            if(orders.get(i).getId()==id){
-                result=orders.get(i);
+    public Order getOrdersById(int id) {
+        Order result = new Order(id);
+
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getId() == id) {
+                result = orders.get(i);
             }
         }
         return result;
     }
+
     public List<Order> getOrdersByClient(String dni) {
         List<Order> result = new ArrayList<>();
         for (int i = 0; i < orders.size(); i++) {
@@ -131,21 +132,24 @@ public class RepositoryOrders {
     }
 
     public boolean loadOrders(String url) {
-        boolean result=false;
-        JAXBContext jaxbContext;
-        try {
-            jaxbContext = JAXBContext.newInstance(RepositoryOrders.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        boolean result = false;
+        File f = new File(url);
+        if (f.exists() && f.isFile()) {
+            JAXBContext jaxbContext;
+            try {
+                jaxbContext = JAXBContext.newInstance(RepositoryOrders.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-            //We had written this file in marshalling example
-            RepositoryOrders newR = (RepositoryOrders) jaxbUnmarshaller.unmarshal(new File(url));
-            System.out.println(newR);
-            orders = newR.orders;
-            result = true;
-        } catch (JAXBException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                //We had written this file in marshalling example
+                RepositoryOrders newR = (RepositoryOrders) jaxbUnmarshaller.unmarshal(new File(url));
+                orders = newR.orders;
+                result = true;
+            } catch (JAXBException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
+
         return result;
     }
 
@@ -163,7 +167,7 @@ public class RepositoryOrders {
             //jaxbMarshaller.marshal(_instance, System.out);
             //Marshal the employees list in file
             jaxbMarshaller.marshal(SingleRepositoryOrders, new File(url));
-            result=true;
+            result = true;
         } catch (JAXBException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -176,7 +180,5 @@ public class RepositoryOrders {
     public String toString() {
         return "RepositoryOrders{" + "orders=" + orders + '}';
     }
-    
-    
 
 }

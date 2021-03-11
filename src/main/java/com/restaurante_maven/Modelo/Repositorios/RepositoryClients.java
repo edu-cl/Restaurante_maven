@@ -174,18 +174,21 @@ public class RepositoryClients {
 
     public boolean loadClients(String url) {
         boolean result = false;
-        JAXBContext jaxbContext;
-        try {
-            jaxbContext = JAXBContext.newInstance(RepositoryClients.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        File f = new File(url);
+        if (f.exists() && f.isFile()) {
+            JAXBContext jaxbContext;
+            try {
+                jaxbContext = JAXBContext.newInstance(RepositoryClients.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-            //We had written this file in marshalling example
-            RepositoryClients newR = (RepositoryClients) jaxbUnmarshaller.unmarshal(new File(url));
-            Clients = newR.Clients;
-            result = true;
-        } catch (JAXBException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                //We had written this file in marshalling example
+                RepositoryClients newR = (RepositoryClients) jaxbUnmarshaller.unmarshal(new File(url));
+                Clients = newR.Clients;
+                result = true;
+            } catch (JAXBException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
         return result;

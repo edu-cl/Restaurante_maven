@@ -5,6 +5,7 @@
  */
 package com.restaurante_maven.Modelo.Principal;
 
+import com.restaurante_maven.Modelo.Repositorios.XmlLocalAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
@@ -31,8 +33,9 @@ public class Order implements Serializable {
     private Client client;
     @XmlElement(name="Productos")
     private List<Integer> products;
-    private int total;
+    private double total;
     @XmlElement(name="Fecha")
+    @XmlJavaTypeAdapter(value = XmlLocalAdapter.class)
     private LocalDate date;
     private String address;
     private boolean delivered;
@@ -42,13 +45,14 @@ public class Order implements Serializable {
         this.id = contador++;
         this.client = new Client();
         this.products = new ArrayList<>();
+        this.total = 0;
         this.date = LocalDate.now();
         this.address = "";
         this.delivered = false;
         this.payed = false;
     }
 
-    public Order(Client client, int total, String address, boolean delivered, boolean payed, List<Integer> p) {
+    public Order(Client client, double total, String address, boolean delivered, boolean payed, List<Integer> p) {
         this.id = contador++;
         this.client = client;
         this.products = p;
@@ -101,11 +105,11 @@ public class Order implements Serializable {
         return client;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
