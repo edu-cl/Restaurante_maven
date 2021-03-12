@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<repositoryClients>
+    <Clientes>
+        <DNI>12345678x</DNI>
+        <name>Eduardo</name>
+        <age>19</age>
+        <ID_Pedido>0</ID_Pedido>
+        <points>0</points>
+    </Clientes>
+    <Clientes>
+        <DNI>12345679X</DNI>
+        <name>Francisco</name>
+        <age>19</age>
+        <ID_Pedido>1</ID_Pedido>
+        <points>0</points>
+    </Clientes>
+    <Clientes>
+        <DNI>12345677L</DNI>
+        <name>mige</name>
+        <age>19</age>
+        <points>0</points>
+    </Clientes>
+</repositoryClients>

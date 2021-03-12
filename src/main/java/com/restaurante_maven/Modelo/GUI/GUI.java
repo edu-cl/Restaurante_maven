@@ -21,10 +21,6 @@ public class GUI {
     }
 
     public static void opciones_principales(int opcion) {
-       
-            controller.orders.loadOrders("orders.xml");
-            controller.clients.loadClients("clients.xml");
-
         if (opcion > -1 && opcion <= 2) {
             switch (opcion) {
                 case 1:
@@ -42,8 +38,9 @@ public class GUI {
     }
 
     public static boolean IniciarSesion() {
-        cuentaAdmin();
         boolean result = false;
+
+        System.out.println(controller.clients.getClients());
 
         System.out.println("\n+-------------------+");
         System.out.println("|   Iniciar Sesion  |");
@@ -55,10 +52,8 @@ public class GUI {
                 c = controller.clients.searchClientByDNI(dni);
 
                 result = true;
-                if (c != null && c.getDNI() != "00000000T") {
+                if (c != null) {
                     sub_menu(c);
-                } else if (c.getDNI() == "00000000T" && c.getName() == "administrador") {
-                    menu_administrador(c);
                 } else {
                     System.out.println("El DNI que has introducido esta repetido");
                 }
@@ -151,6 +146,8 @@ public class GUI {
     }
 
     public static void menu_principal() {
+        controller.orders.loadOrders("orders.xml");
+        controller.clients.loadClients("clients.xml");
         int numero;
         System.out.println("Bienvenido al restaurante");
         do {
@@ -357,54 +354,6 @@ public class GUI {
         } while (numero != 0);
     }
 
-    public static void menu_administrador(Client c) {
-        int numero;
-
-        do {
-            System.out.println("\n+-------------------------------------+");
-            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
-            System.out.println("+-------------------------------------+");
-            System.out.println("| 1) Clientes                         |");
-            System.out.println("| 2) caja                             |");
-            System.out.println("| 0) Salir                            |");
-            System.out.println("+-------------------------------------+");
-
-            numero = devolverInt("Introduce una opción: ");
-            switch (numero) {
-                case 1:
-                    menu_clientes();
-                    break;
-                case 2:
-
-                    break;
-            }
-        } while (numero != 0);
-    }
-
-    public static void menu_clientes() {
-        int numero;
-        do {
-            System.out.println("\n+-------------------------------------+");
-            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
-            System.out.println("+----------------------------------------------+");
-            System.out.println("| 1) Ver todos los clientes                    |");
-            System.out.println("| 2) Ver todas las ordenes de los clientes     |");
-            System.out.println("| 0) Salir                                     |");
-            System.out.println("+----------------------------------------------+");
-
-            numero = devolverInt("Introduce una opción: ");
-            switch (numero) {
-                case 1:
-                    System.out.println(controller.clients.getAllClients());
-                    break;
-                case 2:
-
-                    pulsaEnter();
-                    break;
-            }
-        } while (numero != 0);
-    }
-
     public static String devolverString(String texto) {
         String resultado;
         Scanner teclado = new Scanner(System.in);
@@ -438,11 +387,6 @@ public class GUI {
         System.out.println("Pulsa Enter para continuar");
         String desechable = keyboard.nextLine();
 
-    }
-
-    private static void cuentaAdmin() {
-        Client c = new Client("00000000T", "administrador", 19, 500);
-        controller.clients.addClient(c);
     }
 
     public static String patronDni() {

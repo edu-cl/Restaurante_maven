@@ -198,25 +198,6 @@ public class RepositoryProduct {
 
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        RepositoryProduct rp1 = new RepositoryProduct();
-        RepositoryClients rc1=RepositoryClients.instanceRepositoryClients();
-        // System.out.println(rp1.productos);
-        //rp1.getAllDrink();
-        /*
-        try {
-            //System.out.println(rp1.searchProduct("Kebab"));
-            System.out.println(rp1.searchDrinks("lArIoS"));
-            System.out.println(rp1.searchFood("patatas"));
-            System.out.println("Hola");
-        } catch (Exception ex) {
-            System.out.println("No se ha encontrado el producto");
-        }
-         */
-            
-        
-    }
+    }        
 
 }
