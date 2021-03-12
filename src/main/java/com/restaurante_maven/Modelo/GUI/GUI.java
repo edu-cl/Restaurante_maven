@@ -16,10 +16,6 @@ public class GUI {
     static AppController controller = new AppController();
     public static Client c = null;
 
-    public static void main(String[] args) {
-        menu_principal();
-    }
-
     public static void opciones_principales(int opcion) {
         if (opcion > -1 && opcion <= 2) {
             switch (opcion) {
