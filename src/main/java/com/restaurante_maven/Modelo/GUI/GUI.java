@@ -110,7 +110,7 @@ public class GUI {
 
         do {
             System.out.println("\n+-------------------------------------+");
-            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
+            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI());
             System.out.println("+-------------------------------------+");
             System.out.println("| 1) Productos                        |");
             System.out.println("| 2) Ordenes                          |");
@@ -144,6 +144,7 @@ public class GUI {
     public static void menu_principal() {
         controller.orders.loadOrders("orders.xml");
         controller.clients.loadClients("clients.xml");
+        logo();
         int numero;
         System.out.println("Bienvenido al restaurante");
         do {
@@ -164,7 +165,7 @@ public class GUI {
         int numero;
         do {
             System.out.println("\n+-------------------------------------+");
-            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
+            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI());
             System.out.println("+-------------------------------------+");
             System.out.println("| 1) Ver todos los productos          |");
             System.out.println("| 2) Ver comida                       |");
@@ -205,7 +206,7 @@ public class GUI {
         int numero;
         do {
             System.out.println("\n+-------------------------------------+");
-            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
+            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI());
             System.out.println("| 1) Crear nueva orden                |");
             System.out.println("| 2) Añadir un producto               |");
             System.out.println("| 3) Eliminar un producto             |");
@@ -276,10 +277,11 @@ public class GUI {
         int numero;
         do {
             System.out.println("\n+-------------------------------------+");
-            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
+            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI());
             System.out.println("+-------------------------------------+");
             System.out.println("| 1) Cambiar nombre del cliente       |");
             System.out.println("| 2) Cambiar la edad del cliente      |");
+            System.out.println("| 3) Añadir dirección a la cuenta     |");
             System.out.println("| 0) Salir                            |");
             System.out.println("+-------------------------------------+");
 
@@ -300,6 +302,11 @@ public class GUI {
                     System.out.println(c.toString());
                     pulsaEnter();
                     break;
+
+                case 3:
+                    String direccion = devolverString("Introduce la dirección para añadir: ");
+                    c.getAdress().add(direccion);
+                    break;
             }
         } while (numero != 0);
     }
@@ -308,7 +315,7 @@ public class GUI {
         int numero;
         do {
             System.out.println("\n+-------------------------------------+");
-            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI() + "  |");
+            System.out.println("|Cliente: " + c.getName() + " | DNI: " + c.getDNI());
             System.out.println("+-------------------------------------+");
             System.out.println("| 1) Eliminar orden por id            |");
             System.out.println("| 2) Ver todas mis ordenes            |");
@@ -404,6 +411,14 @@ public class GUI {
 
         }
         return dni;
+    }
+
+    public static void logo() {
+        System.out.println("| |  | |     | |     | |      | |      |  _ \\ ");
+        System.out.println("| |  | |_ __ | |_ ___| | _____| | ___  | |_) | __ _ _ __ ");
+        System.out.println("| |  | | '_ \\| __/ _ \\ |/ / _ \\ |/ _ \\ |  _ < / _` | '__|");
+        System.out.println("| |__| | | | | ||  __/   <  __/ |  __/ | |_) | (_| | |   ");
+        System.out.println(" \\____/|_| |_|\\__\\___|_|\\_\\___|_|\\___| |____/ \\__,_|_|   ");
     }
 
 }
