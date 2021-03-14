@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class GUI {
 
-    static AppController controller = new AppController();
+    public static AppController controller = new AppController();
     public static Client c = null;
 
     public static void opciones_principales(int opcion) {
@@ -35,8 +35,6 @@ public class GUI {
 
     public static boolean IniciarSesion() {
         boolean result = false;
-
-        System.out.println(controller.clients.getClients());
 
         System.out.println("\n+-------------------+");
         System.out.println("|   Iniciar Sesion  |");
