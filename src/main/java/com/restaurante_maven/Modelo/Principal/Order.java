@@ -150,10 +150,10 @@ public class Order implements Serializable {
         String result = "";
 
         if (products == null) {
-            result = "Order{" + "client=" + client + ", products=" + "Vacio" + ", total=" + total + ", date=" + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + '}';
+            result = "Order{"+" ID: "+getId() + " client=" + client + ", products=" + "Vacio" + ", total=" + total + ", date=" + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + '}';
 
         } else {
-            result = "Order{" + "client=" + client + ", products=" + products + ", total=" + total + ", date=" + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + '}';
+            result = "Order{"+" ID: "+getId() + " client=" + client + ", products=" + products + ", total=" + total + ", date=" + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + '}';
 
         }
         return result;
